@@ -1,0 +1,24 @@
+# CLAUDE.md
+
+## Proyecto
+
+Aplicación React para mostrar GPS en tiempo real sobre una imagen de mapa.
+
+## Tecnologías
+
+- React
+- Vite
+- CSS
+
+## Funcionalidades
+
+- Mostrar mapa.png.
+- Obtener GPS mediante navigator.geolocation.
+- Mostrar marcador sobre la imagen.
+- Actualizar posición en tiempo real.
+
+## Convenciones
+
+- Componentes funcionales.
+- Hooks personalizados.
+- Comentarios claros.

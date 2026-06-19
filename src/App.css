@@ -1,0 +1,121 @@
+/* ============================================
+   Mi Mapa Online - Estilos principales
+   ============================================ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.app-titulo {
+  font-size: 1.8rem;
+  margin: 0 0 12px;
+  color: var(--text-h);
+}
+
+.app-mensaje {
+  color: var(--text);
+  font-style: italic;
+  margin: 8px 0;
+}
+
+.app-error {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  max-width: 480px;
+  text-align: center;
+}
+
+.app-error p {
+  margin: 4px 0;
+  color: #dc2626;
+}
+
+.app-error-ayuda {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.app-coords {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--text);
+  margin: 8px 0;
+  background: var(--code-bg);
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+/* ============================================
+   Contenedor del mapa
+   ============================================ */
+
+.mapa-contenedor {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.mapa-imagen {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ============================================
+   Marcador
+   ============================================ */
+
+.marcador {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.marcador-pin {
+  width: 20px;
+  height: 20px;
+  background: #ef4444;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.marcador-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: rgba(239, 68, 68, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  animation: pulso 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes pulso {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
