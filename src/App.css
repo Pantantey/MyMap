@@ -119,3 +119,81 @@
     opacity: 0;
   }
 }
+
+/* ============================================
+   Controles de grabación de rutas
+   ============================================ */
+
+.controles-ruta {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-ruta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--sans);
+}
+
+.btn-ruta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-ruta:active {
+  transform: translateY(0);
+}
+
+.btn-ruta-detener {
+  background: #22c55e;
+  color: #fff;
+}
+
+.btn-ruta-detener:hover {
+  background: #16a34a;
+}
+
+.btn-ruta-grabando {
+  background: #ef4444;
+  color: #fff;
+  animation: grabar-pulso 1.5s ease-in-out infinite;
+}
+
+.btn-ruta-grabando:hover {
+  background: #dc2626;
+  animation: none;
+}
+
+.btn-ruta-limpiar {
+  background: #6b7280;
+  color: #fff;
+}
+
+.btn-ruta-limpiar:hover {
+  background: #4b5563;
+}
+
+@keyframes grabar-pulso {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.app-grabando {
+  color: #ef4444;
+  font-weight: 600;
+}

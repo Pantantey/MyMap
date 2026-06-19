@@ -1,18 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import Marcador from "./Marcador";
+import RouteLayer from "./RouteLayer";
+import { BOUNDS } from "../constants";
 import mapa_barrio from "../assets/mapa_barrio.png";
-
-/**
- * Límites geográficos del mapa (bounding box).
- * Esquina superior izquierda = (norte, oeste)
- * Esquina inferior derecha = (sur, este)
- */
-const BOUNDS = {
-  north: 10.07746,
-  south: 10.05838,
-  west: -84.47714,
-  east: -84.4642,
-};
 
 /**
  * Convierte coordenadas geográficas a píxeles dentro del mapa.
@@ -34,7 +24,7 @@ function latLngToPixel(lat, lng, imgWidth, imgHeight) {
  *
  * @param {{ latitude: number|null, longitude: number|null }} props
  */
-export default function Mapa({ latitude, longitude }) {
+export default function Mapa({ latitude, longitude, routes, currentRoute }) {
   const imgRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -71,6 +61,15 @@ export default function Mapa({ latitude, longitude }) {
         draggable={false}
       />
       {marcadorPos && <Marcador x={marcadorPos.x} y={marcadorPos.y} />}
+      {dimensions.width > 0 && (
+        <RouteLayer
+          routes={routes}
+          currentRoute={currentRoute}
+          bounds={BOUNDS}
+          mapWidth={dimensions.width}
+          mapHeight={dimensions.height}
+        />
+      )}
     </div>
   );
 }
