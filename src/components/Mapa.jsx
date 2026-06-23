@@ -1,56 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import Marcador from "./Marcador";
 import RouteLayer from "./RouteLayer";
-import { BOUNDS, MAP_IMAGE } from "../constants";
+import { latLngToPixel, scaleToDisplay } from "../mapUtils";
 import mapa_barrio from "../assets/mapa_barrio.png";
-
-/**
- * Verifica si unas coordenadas están dentro de los límites del mapa.
- */
-function isInsideBounds(lat, lng) {
-  return (
-    lat >= BOUNDS.south &&
-    lat <= BOUNDS.north &&
-    lng >= BOUNDS.west &&
-    lng <= BOUNDS.east
-  );
-}
-
-/**
- * Convierte coordenadas geográficas a píxeles DENTRO de la imagen real.
- * Usa las dimensiones configuradas en MAP_IMAGE (no el tamaño en pantalla).
- * Retorna null si las coordenadas están fuera del mapa.
- *
- * @param {number} lat
- * @param {number} lng
- * @returns {{ x: number, y: number } | null}
- */
-function latLngToPixel(lat, lng) {
-  if (!isInsideBounds(lat, lng)) return null;
-
-  const x =
-    ((lng - BOUNDS.west) / (BOUNDS.east - BOUNDS.west)) * MAP_IMAGE.width;
-  const y =
-    ((BOUNDS.north - lat) / (BOUNDS.north - BOUNDS.south)) * MAP_IMAGE.height;
-  return { x, y };
-}
-
-/**
- * Escala coordenadas del tamaño real de la imagen al tamaño mostrado en pantalla.
- */
-function scaleToDisplay(realX, realY, displayWidth, displayHeight) {
-  const scaleX = displayWidth / MAP_IMAGE.width;
-  const scaleY = displayHeight / MAP_IMAGE.height;
-  return {
-    x: realX * scaleX,
-    y: realY * scaleY,
-  };
-}
 
 /**
  * Mapa que muestra la imagen de fondo, el marcador GPS y las rutas grabadas.
  *
- * Usa MAP_IMAGE (constants.js) para las dimensiones reales del mapa.
+ * Usa MAP_IMAGE (constants.js) para las dimensiones reales del mapa via mapUtils.
  * El marcador solo se muestra si el GPS está dentro de BOUNDS.
  * Las coordenadas se escalan automáticamente al tamaño mostrado en pantalla.
  */
@@ -59,7 +16,7 @@ export default function Mapa({ latitude, longitude, routes, currentRoute }) {
   const contRef = useRef(null);
   const [displaySize, setDisplaySize] = useState({ width: 0, height: 0 });
 
-  // Detectar el tamaño real en pantalla de la imagen (puede diferir del real por CSS)
+  // Detectar el tamaño real en pantalla del contenedor (puede diferir del real por CSS)
   useEffect(() => {
     const img = imgRef.current;
     const cont = contRef.current;
@@ -72,7 +29,6 @@ export default function Mapa({ latitude, longitude, routes, currentRoute }) {
       });
     }
 
-    // Esperar a que la imagen cargue para medir
     function handleLoad() {
       updateDisplaySize();
     }
@@ -117,9 +73,8 @@ export default function Mapa({ latitude, longitude, routes, currentRoute }) {
         <RouteLayer
           routes={routes}
           currentRoute={currentRoute}
-          bounds={BOUNDS}
-          mapWidth={MAP_IMAGE.width}
-          mapHeight={MAP_IMAGE.height}
+          displayWidth={displaySize.width}
+          displayHeight={displaySize.height}
         />
       )}
     </div>

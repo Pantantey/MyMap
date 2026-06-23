@@ -12,7 +12,7 @@ function App() {
     startRecording,
     stopRecording,
     clearRoutes,
-  } = useRouteRecorder({ latitude, longitude });
+  } = useRouteRecorder();
 
   return (
     <div className="app">
