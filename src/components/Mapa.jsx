@@ -1,7 +1,9 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import Marcador from "./Marcador";
 import RouteLayer from "./RouteLayer";
+import PoiMarker from "./PoiMarker";
 import { latLngToPixel, scaleToDisplay } from "../mapUtils";
+import poiData from "../data/poiData";
 import mapa_barrio from "../assets/mapa_barrio.png";
 
 /**
@@ -49,7 +51,7 @@ export default function Mapa({ latitude, longitude, routes, currentRoute }) {
     };
   }, []);
 
-  // Calcular posición del marcador solo si está dentro del mapa
+  // Calcular posición del marcador GPS solo si está dentro del mapa
   const hasValidCoords = latitude !== null && longitude !== null;
   const realPos = hasValidCoords ? latLngToPixel(latitude, longitude) : null;
 
@@ -58,6 +60,19 @@ export default function Mapa({ latitude, longitude, routes, currentRoute }) {
     realPos && displaySize.width > 0
       ? scaleToDisplay(realPos.x, realPos.y, displaySize.width, displaySize.height)
       : null;
+
+  // Calcular posiciones de los POIs en píxeles de pantalla
+  const poisConPosicion = useMemo(() => {
+    if (displaySize.width <= 0) return [];
+    return poiData
+      .map((poi) => {
+        const real = latLngToPixel(poi.lat, poi.lng);
+        if (!real) return null;
+        const display = scaleToDisplay(real.x, real.y, displaySize.width, displaySize.height);
+        return { poi, x: display.x, y: display.y };
+      })
+      .filter((item) => item !== null);
+  }, [displaySize]);
 
   return (
     <div className="mapa-contenedor" ref={contRef}>
@@ -77,6 +92,9 @@ export default function Mapa({ latitude, longitude, routes, currentRoute }) {
           displayHeight={displaySize.height}
         />
       )}
+      {poisConPosicion.map(({ poi, x, y }) => (
+        <PoiMarker key={poi.id} poi={poi} x={x} y={y} />
+      ))}
     </div>
   );
 }
