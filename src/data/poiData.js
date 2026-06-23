@@ -26,22 +26,22 @@ const poiData = [
   // ==============================
   //  AGREGA TUS PUNTOS AQUÍ ABAJO
   // ==============================
-  // {
-  //   id: 1,
-  //   titulo: "Mi Casa",
-  //   descripcion: "Aquí es donde vivo",
-  //   imagen: "mi-casa.png",
-  //   lat: 10.0685,
-  //   lng: -84.4700,
-  // },
-  // {
-  //   id: 2,
-  //   titulo: "Trabajo",
-  //   descripcion: "Mi oficina",
-  //   imagen: "trabajo.jpg",
-  //   lat: 10.0730,
-  //   lng: -84.4680,
-  // },
+  {
+    id: 1,
+    titulo: "Izquierda hogares",
+    descripcion: "Aquí es donde quedaba hogares crea",
+    imagen: "mapa_barrio.png",
+    lat: 10.07134,
+    lng: -84.47555,
+  },
+  {
+    id: 2,
+    titulo: "Cima de cuesta",
+    descripcion: "Se ve una cuesta para abajo",
+    imagen: "mapa_barrio.png",
+    lat: 10.07197,
+    lng: -84.46631,
+  },
 ];
 
 export default poiData;
