@@ -1,10 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-
-/**
- * Distancia mínima entre puntos para evitar duplicados (en grados).
- * ~1 metro en el ecuador ≈ 0.000009°
- */
-const MIN_DISTANCE = 0.00001;
+import { MIN_DISTANCE } from "../constants";
 
 /**
  * Intervalo para sincronizar el ref con el estado de React (ms).

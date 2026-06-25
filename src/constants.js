@@ -21,3 +21,15 @@ export const MAP_IMAGE = {
   width: 602,
   height: 905,
 };
+
+/**
+ * Distancia mínima entre puntos de ruta en grados (aprox. 1° = 111 km).
+ *
+ * - 0.00005 ≈ 5.5 metros (bueno para caminar, evita ruido del GPS)
+ * - 0.00010 ≈ 11 metros (ideal para bicicleta o carro en ciudad)
+ * - 0.00001 ≈ 1 metro  (demasiado sensible, genera muchos puntos)
+ * - 0.00050 ≈ 55 metros (solo para trayectos largos)
+ *
+ * Ajusta este valor si quieres más o menos puntos en tus rutas.
+ */
+export const MIN_DISTANCE = 0.00005;
